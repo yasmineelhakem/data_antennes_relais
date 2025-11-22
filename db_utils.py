@@ -19,10 +19,9 @@ def get_engine():
 
 
 def load_to_db(df):
-    dbname = os.getenv("DB_NAME")
     engine = get_engine()
     df.to_sql(
-        dbname,
+        'antennes',
         engine,
         if_exists="append",
         index=False,
@@ -31,11 +30,11 @@ def load_to_db(df):
 
 def load_from_db():
     engine = get_engine()
-    dbname = os.getenv("DB_NAME")
     df = gpd.read_postgis(
-        f"SELECT * FROM {dbname}",
+        f"SELECT * FROM antennes",
         engine,
         geom_col="geom"
     )
     return df
+
 df = load_from_db()
