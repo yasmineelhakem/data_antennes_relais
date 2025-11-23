@@ -1,0 +1,17 @@
+.venv/
+
+__pycache__/
+
+.idea/
+
+*.ipynb
+.ipynb_checkpoints/
+
+.env
+
+.git/
+.gitignore
+
+data/
+
+notebooks/
