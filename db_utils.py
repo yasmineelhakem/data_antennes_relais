@@ -1,11 +1,30 @@
 from dotenv import load_dotenv
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 from geoalchemy2 import Geometry
 import geopandas as gpd
 
 load_dotenv()
+
+def init_database():
+    engine = get_engine()
+    create_sql = """
+    CREATE TABLE IF NOT EXISTS antennes (
+        code_site VARCHAR(50),
+        adresse TEXT,
+        operateur VARCHAR(50),
+        mise_en_serv DATE,
+        mise_en_serv_4g DATE,
+        mise_en_serv_5g_3500 DATE,
+        type_clean VARCHAR(50),
+        geom GEOMETRY(Point, 4326),
+        arrondissement INT
+    );
+    """
+    with engine.begin() as conn:
+        conn.execute(text(create_sql))
+        print("Table 'antennes' created.")
 
 def get_engine():
     user = os.getenv("DB_USER")
@@ -36,5 +55,6 @@ def load_from_db():
         geom_col="geom"
     )
     return df
-
-df = load_from_db()
+if __name__ == "__main__":
+    init_database()
+    load_to_db("antennes_clean.csv")

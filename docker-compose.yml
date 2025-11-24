@@ -25,9 +25,7 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       DB_NAME: ${DB_NAME}
-    volumes:
-      - .:/app   # Dev mode: auto reload
-    command: python dashboard/app.py
+    command: python app.py
 
 volumes:
   postgres_data:
