@@ -6,7 +6,8 @@ from dashboard.analysis_utils import (
     get_4G_5G_repartition,
     geospatial_clustering
 )
-from db_utils import load_from_db
+from db_utils import load_from_db, init_database, load_to_db
+import pandas as pd
 from dashboard.visualizations import (
     create_delay_chart,
     create_antennas_repartition_chart,
@@ -178,7 +179,16 @@ def create_app(data):
 
 
 if __name__ == '__main__':
+    init_database()
+
+    df_existing = load_from_db()
+    if df_existing.empty:
+        print("Table vide")
+        df_csv = pd.read_csv("/app/data/antennes_clean.csv")
+        load_to_db(df_csv)
+
     df = load_from_db()
     data = prepare_data_from_df(df)
     app = create_app(data)
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
+

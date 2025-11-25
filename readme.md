@@ -69,27 +69,25 @@ Ce projet vise à analyser et visualiser le déploiement des antennes relais (3G
 ![Délai 5G](./interface/4.png)
 ![Répartition géographique](./interface/5.png)
 
-
-
-
-
-##  Installation et Exécution
-
-### Prérequis
-
-- Python 3.11+
-- PostgreSQL avec l'extension PostGIS
-- Docker (optionnel)
-
-### Installation
+## Installation
 
    ```bash
    git clone https://github.com/yasmineelhakem/data_antennes_relais.git
    cd data_antennes_relais  
 ```
+Créer un fichier .env à la racine:
+``` bash
+DB_USER=postgres
+DB_PASSWORD=your_password
+DB_HOST=db
+DB_PORT=5432
+DB_NAME=antennes_db 
+``` 
+
 ```bash
 docker compose build --no-cache 
 docker compose up -d 
    ```
+L'interface sera disponible sur: http://localhost:8050
 
 

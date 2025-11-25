@@ -57,4 +57,5 @@ def load_from_db():
     return df
 if __name__ == "__main__":
     init_database()
-    load_to_db("antennes_clean.csv")
+    df = pd.read_csv("data/antennes_clean.csv")
+    load_to_db(df)
